@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1"/>
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>Hello <span th:text="${persona.nombre}"> !!!</span> </h1>
+	<h1>Tu edad es: <span th:text="${persona.edad}"></span> </h1>
+	
+	<fieldset lang="tabla de personas">
+		<legend>Tabla de personas</legend>
+		<table>
+			<thead>
+				<tr><th>Nombre</th></tr>
+				<tr><th>Edad</th></tr>
+			</thead>
+			<tbody th:each="persona:${personas}">
+				<tr>
+					<th th:text="${persona.nombre}"></th>
+					<th  th:text="${persona.edad}"></th>
+				</tr>
+			</tbody>
+		</table>
+	</fieldset>
+	
+</body>
+</html>
