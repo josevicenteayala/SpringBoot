@@ -1,5 +1,9 @@
 package co.com.intergrupo.maven.boot.model;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class Persona {
 	public Persona() {
 		//constructor vacio
@@ -10,9 +14,14 @@ public class Persona {
 		this.edad = edad;
 	}
 	
-	
+	@NotNull
+	@Size(min=2,max=20)
 	private String nombre;
+	
+	@NotNull
+	@Min(1)
 	private int edad;
+	
 	public String getNombre() {
 		return nombre;
 	}

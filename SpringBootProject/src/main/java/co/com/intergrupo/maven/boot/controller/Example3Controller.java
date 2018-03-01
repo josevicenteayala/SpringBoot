@@ -1,7 +1,10 @@
 package co.com.intergrupo.maven.boot.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,9 +44,16 @@ public class Example3Controller {
 	}
 	
 	@PostMapping("/datosDeLaPersona")
-	public ModelAndView recibirParametrosDedeElFormulario(@ModelAttribute("persona") Persona persona) {
-		ModelAndView modelAndView = new ModelAndView(VISTA_RESULTADO_PERSONA);
-		modelAndView.addObject("persona",persona);
+	public ModelAndView recibirParametrosDedeElFormulario(@Valid @ModelAttribute("persona") Persona persona, BindingResult bindingResult) {
+		ModelAndView modelAndView = new ModelAndView();
+		if(bindingResult.hasErrors()) {
+			modelAndView.setViewName(VISTA_FORMULARIO);
+		}else {
+			modelAndView.setViewName(VISTA_RESULTADO_PERSONA);
+			modelAndView.addObject("persona",persona);
+		}
+		
+		
 		return modelAndView;
 	}
 }
