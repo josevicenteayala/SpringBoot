@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1"/>
+<title>Maneja los cursos</title>
+</head>
+<body>
+
+<fieldset>
+	 <legend>LISTADO DE CURSOS</legend>
+	 	<table>
+	 		<thead>
+	 			<tr>
+	 				<th>id</th>
+	 				<th>descripcion</th>
+	 				<th>horas</th>
+	 				<th>nombre</th>
+	 				<th>precio</th>
+	 			</tr>
+	 		</thead>
+	 		<tbody>
+	 			<tr th:each="curso:${listaCursos}">
+	 				<th align="left"><span th:text="${curso.id}"></span></th>
+	 				<th align="left"><span th:text="${curso.descripcion}"></span></th>
+	 				<th><span th:text="${curso.horas}"></span></th>
+	 				<th align="left"><span th:text="${curso.nombre}"></span></th>
+	 				<th><span th:text="${curso.precio}"></span></th>	 			
+	 			</tr>
+	 		</tbody>
+	 	</table>	 
+	 <form action="#" th:action="@{/cursos/crearCursoParaHtml}" method="post" th:object="${curso}">
+	 	<p>Nombre del curos:<input type="text" th:field="*{nombre}"/></p>
+	 	<p>Descripcion del curos:<input type="text" th:field="*{descripcion}"/></p>
+	 	<p>Horas del curos:<input type="number" th:field="*{horas}"/></p>
+	 	<p>Precio del curos:<input type="number" th:field="*{precio}"/></p>
+	 	<p><input type="submit" value="Crear curso"/></p>
+	 </form>
+</fieldset>
+
+</body>
+</html>
