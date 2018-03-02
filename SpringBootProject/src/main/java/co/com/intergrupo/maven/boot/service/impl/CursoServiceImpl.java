@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import co.com.intergrupo.maven.boot.ModelMapperCurso;
+import co.com.intergrupo.maven.boot.converter.ModelMapperCurso;
 import co.com.intergrupo.maven.boot.dto.CursoDto;
 import co.com.intergrupo.maven.boot.entity.CursoEntity;
 import co.com.intergrupo.maven.boot.repository.CursoRepository;

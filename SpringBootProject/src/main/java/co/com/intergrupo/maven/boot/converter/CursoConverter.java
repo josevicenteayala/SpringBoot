@@ -2,7 +2,6 @@ package co.com.intergrupo.maven.boot.converter;
 
 import org.springframework.stereotype.Component;
 
-import co.com.intergrupo.maven.boot.ModelMapperCurso;
 import co.com.intergrupo.maven.boot.dto.CursoDto;
 import co.com.intergrupo.maven.boot.entity.CursoEntity;
 
