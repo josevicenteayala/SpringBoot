@@ -1,6 +1,7 @@
 package com.application.boot.contactos.service.impl;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +24,7 @@ public class ContactServiceImpl implements ContactService{
 	
 	@Override
 	public ContactModel adicionarModelo(ContactModel contactModel) {
-		ContactEntity contactEntity = modelMapperContact.convertirContactModelAContactEntity(contactModel);
-		ContactEntity contactEntityCreado = contactRepository.save(contactEntity);
-		return modelMapperContact.convertirContactEntityAContactModel(contactEntityCreado);
+		return adicionarModificarContactEntity(contactModel);
 	}
 	
 	@Override
@@ -36,13 +35,50 @@ public class ContactServiceImpl implements ContactService{
 	
 	@Override
 	public ContactModel eliminarContacto(int idContacto) {
-		Optional<ContactEntity> contactEntity = contactRepository.findById(idContacto);
-		if(contactEntity.isPresent()) {
-			ContactEntity contactEntityABorrar = contactEntity.get();
-			contactRepository.delete(contactEntityABorrar);
-			return modelMapperContact.convertirContactEntityAContactModel(contactEntityABorrar);	
+		ContactEntity contactEntity;
+		try {
+			contactEntity = encontrarContactoPorIdentificador(idContacto);
+			if(Objects.nonNull(contactEntity)) {
+				contactRepository.delete(contactEntity);
+				return modelMapperContact.convertirContactEntityAContactModel(contactEntity);	
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return new ContactModel();
 	}
 	
+	@Override
+	public ContactModel encontrarContactoPorIdentificadorRetornarContactModel(int idContacto){
+		Optional<ContactEntity> contactEntity = contactRepository.findById(idContacto);
+		if(contactEntity.isPresent()) {
+			return modelMapperContact.convertirContactEntityAContactModel(contactEntity.get());
+		}
+		return new ContactModel();
+	}
+	
+	@Override
+	public ContactModel modificarModelo(ContactModel contactModel) {
+		return adicionarModificarContactEntity(contactModel);
+	}
+
+	/**
+	 * @param contactModel
+	 * @return
+	 */
+	private ContactModel adicionarModificarContactEntity(ContactModel contactModel) {
+		Objects.requireNonNull(contactModel);
+		ContactEntity contactEntity = modelMapperContact.convertirContactModelAContactEntity(contactModel);
+		ContactEntity contactEntityCreado = contactRepository.save(contactEntity);
+		return modelMapperContact.convertirContactEntityAContactModel(contactEntityCreado);
+	}
+	
+	private ContactEntity encontrarContactoPorIdentificador(int idContacto) throws Exception {
+		Optional<ContactEntity> contactEntity = contactRepository.findById(idContacto);
+		if(contactEntity.isPresent()) {
+			return contactEntity.get();
+		}
+		throw new Exception("No se encontro la entidad solicitada");
+	}
+
 }

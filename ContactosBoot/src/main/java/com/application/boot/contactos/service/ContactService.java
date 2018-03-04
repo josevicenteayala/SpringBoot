@@ -12,4 +12,8 @@ public interface ContactService {
 
 	ContactModel eliminarContacto(int idContacto);
 
+	ContactModel encontrarContactoPorIdentificadorRetornarContactModel(int idContacto);
+
+	ContactModel modificarModelo(ContactModel contactModel);
+
 }
