@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/testdb?useSSL=false
+    url: jdbc:mysql://mysqlaws.cbmlkigba5xb.us-east-2.rds.amazonaws.com:3306/testdb?useSSL=false
     username: jayala
     password: vincaqui01
   jpa:
