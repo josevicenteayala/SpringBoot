@@ -8,10 +8,10 @@
 		<version>2.1.6.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.api.fastapi</groupId>
+	<groupId>com.api</groupId>
 	<artifactId>fastapi</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>fastapi</name>
+	<name>FastAPI</name>
 	<description>This is an example of API generation</description>
 
 	<properties>
