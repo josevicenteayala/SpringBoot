@@ -3,6 +3,7 @@
  */
 package com.excel.base.controllers;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,9 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -43,4 +47,21 @@ public class UploadExcelController {
 		return new ArrayList<>();
 	}
 	
+	
+	@PostMapping("/generateExcel.do")
+	public ResponseEntity<InputStreamResource> generateReport(@RequestParam(name = "identification", required = true) String identification, @RequestParam(name = "employNumber", required = true) int employNumber) {
+		ByteArrayInputStream generateExcelReport = null;
+		try {
+			generateExcelReport = uploadExcelService.generateExcelReport(identification,employNumber);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "attachment; filename=customers.xlsx");
+    
+     return ResponseEntity
+                  .ok()
+                  .headers(headers)
+                  .body(new InputStreamResource(generateExcelReport));
+	}
 }
